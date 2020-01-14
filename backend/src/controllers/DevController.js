@@ -4,6 +4,12 @@ const parseStringAsArray = require('../util/parseStringAsArray');
 
 module.exports = {
 
+    async show(req,res){
+        const dev = await Dev.findById(req.params.id);
+
+        return res.json(dev);
+    },
+
     async index(req,res){
         const devs = await Dev.find();
 
@@ -41,5 +47,16 @@ module.exports = {
 
         res.json(dev);
 
+    },
+
+    async update(req,res){
+        const dev = await Dev.findByIdAndUpdate(req.params.id,req.body);
+
+        return res.json(dev);
+    },
+
+    async destroy(req, res){
+        await Dev.findByIdAndDelete(req.params.id);
+        return res.json({result : true});
     }
 }
